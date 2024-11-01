@@ -54,10 +54,8 @@ class Validator:
             if battlefy_team_name in self.gform_teams:
                 gform_players = self.gform_teams[battlefy_team_name]
 
-                battlefy_player_splashtags = {player.splashtag.strip().replace(" #", "#") for player in
-                                              battlefy_team_obj.players}
-                gform_player_splashtags = {player.splashtag.strip().replace(" #", "#") for player in
-                                           gform_players.players}
+                battlefy_player_splashtags = {player.splashtag for player in battlefy_team_obj.players}
+                gform_player_splashtags = {player.splashtag for player in gform_players.players}
 
                 only_in_battlefy = battlefy_player_splashtags - gform_player_splashtags
                 only_in_gform = gform_player_splashtags - battlefy_player_splashtags
