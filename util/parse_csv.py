@@ -1,70 +1,100 @@
-import csv
-from collections import defaultdict
-from typing import Final
+"""
+This module provides functions to parse CSV files exported from Google Forms and Battlefy.
+It converts CSV rows into Team and Player objects for further processing.
+"""
 
+import csv
+from typing import Dict
+
+# Import headers and models using absolute imports for package structure
+from config import headers
+from config.settings import MAX_PLAYERS_PER_TEAM
 from models.data_source import DataSource
 from models.player import Player
 from models.team import Team
 
-SPLASHTAG_REGEX: Final = r"^[^\x00-\x1F]{1,15}#\d{4,5}$"
 
-TEAM_NAME_GFORM_HEADER: Final = 'Team Name'
-PLAYER_NAME_GFORM_HEADER: Final = 'Player {}\'s Splashtag'
-PLAYER_DISCORD_GFORM_HEADER: Final = 'Player {}\'s Discord Username'
+def parse_gform_csv(gform_csv_filename: str) -> Dict[str, Team]:
+    """
+    Parses a Google Forms CSV export and returns a dictionary of team name to Team objects.
+    Each team contains a list of Player objects and a captain.
 
-TEAM_NAME_BATTLEFY_HEADER: Final = 'teamName'
-PLAYER_NAME_BATTLEFY_HEADER: Final = 'inGameName'
-PLAYER_DISCORD_BATTLEFY_HEADER: Final = 'Captain\'s Discord username'
+    Args:
+        gform_csv_filename (str): Path to the Google Forms CSV file.
 
-MAX_PLAYERS_PER_TEAM: Final = 8
-
-
-def parse_gform_csv(gform_csv_filename: str):
+    Returns:
+        Dict[str, Team]: Dictionary mapping team names to Team objects.
+    """
     teams_list = []
 
+    # Open the Google Forms CSV file for reading
     with open(gform_csv_filename, mode='r', newline='') as file:
         reader = csv.DictReader(file)
 
+        # Iterate over each row (team registration)
         for row in reader:
-            team = Team(name=row[TEAM_NAME_GFORM_HEADER], source=DataSource.GOOGLE_REGISTRATION)
+            # Create a Team object for each row
+            team = Team(name=row[headers.TEAM_NAME_GFORM_HEADER], source=DataSource.GOOGLE_REGISTRATION)
 
-            for i in range(0, MAX_PLAYERS_PER_TEAM):
+            # Add up to MAX_PLAYERS_PER_TEAM players to the team
+            for i in range(MAX_PLAYERS_PER_TEAM):
                 column_player_num = i + 1
-                player_name = row[PLAYER_NAME_GFORM_HEADER.format(column_player_num)]
-                player_discord = row[PLAYER_DISCORD_GFORM_HEADER.format(column_player_num)]
+                player_name_key = headers.PLAYER_NAME_GFORM_HEADER.format(column_player_num)
+                player_discord_key = headers.PLAYER_DISCORD_GFORM_HEADER.format(column_player_num)
+                player_name = row[player_name_key] if player_name_key in row else ""
+                player_discord = row[player_discord_key] if player_discord_key in row else ""
 
-                # end loop if no more players are found
+                # Stop adding players if both name and discord are empty
                 if player_name == "" and player_discord == "":
                     break
 
+                # Create a Player object and add to the team
                 player = Player(player_name, player_discord, DataSource.GOOGLE_REGISTRATION)
                 team.players.append(player)
 
-            team.captain = team.players[0]  # team captain will always be the 1st player on the roster
+            # Assign the first player as the team captain if any players exist
+            if team.players:
+                team.captain = team.players[0]  # First player is captain
+
             teams_list.append(team)
+
+    # Return a dictionary mapping team names to Team objects
     return {team.name: team for team in teams_list}
 
 
-def parse_battlefy_csv(battlefy_csv_filename: str):
-    team_dict = defaultdict(Team)
+def parse_battlefy_csv(battlefy_csv_filename: str) -> Dict[str, Team]:
+    """
+    Parses a Battlefy CSV export and returns a dictionary of team name to Team objects.
+    Each team contains a list of Player objects and a captain (discord only).
+
+    Args:
+        battlefy_csv_filename (str): Path to the Battlefy CSV file.
+
+    Returns:
+        Dict[str, Team]: Dictionary mapping team names to Team objects.
+    """
+    team_dict: Dict[str, Team] = {}
+
+    # Open the Battlefy CSV file for reading
     with open(battlefy_csv_filename, mode='r', newline='') as file:
         reader = csv.DictReader(file)
 
+        # Iterate over each row (player registration)
         for row in reader:
-            team_name = row[TEAM_NAME_BATTLEFY_HEADER]
-            player_splashtag = row[PLAYER_NAME_BATTLEFY_HEADER]
-            captain_discord = row[PLAYER_DISCORD_BATTLEFY_HEADER]
+            team_name = row[headers.TEAM_NAME_BATTLEFY_HEADER]
+            player_splashtag = row[headers.PLAYER_NAME_BATTLEFY_HEADER]
+            captain_discord = row[headers.PLAYER_DISCORD_BATTLEFY_HEADER]
 
-            # Note that we don't know the player's discord nor do we know the
-            # captain's splashtag from looking at only battlefy's export
+            # Create Player object for each row
             player = Player(splashtag=player_splashtag, source=DataSource.BATTLEFY)
 
+            # If team not yet in dictionary, create new Team with captain
             if team_name not in team_dict:
                 team_captain = Player(discord=captain_discord, source=DataSource.BATTLEFY)
-
-                team_dict[team_name] = Team(name=team_name, captain=team_captain, players=[player],
-                                            source=DataSource.BATTLEFY)
+                team_dict[team_name] = Team(name=team_name, captain=team_captain, players=[player], source=DataSource.BATTLEFY)
             else:
+                # Otherwise, add player to existing team
                 team_dict[team_name].players.append(player)
-    return team_dict
 
+    # Return dictionary mapping team names to Team objects
+    return team_dict
