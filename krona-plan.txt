@@ -1,0 +1,8 @@
+- Automatic Roster Sheet Download from link to Web Published Sheet
+  - How to make dataframe to CSV for program to use 
+- Sendou.py intergration for automatic CSV building 
+  - How to handle discord from sendou.ink? Can API get that information?
+- Secondary contact pinging
+  - Easy to hot-wire?
+- Automatic Discord Messaging?
+  - Krona makes a bot and runs script to post in #circuit-annoucment channel?
