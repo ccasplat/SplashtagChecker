@@ -1,6 +1,7 @@
 import argparse
 
 import arrow
+import json
 
 from models.validator import Validator
 from util.pretty_print import pretty_print_players, pretty_print_player_list
@@ -9,8 +10,10 @@ from discord_timestamps import format_timestamp, TimestampType
 from automation import *
 import asyncio
 
+C2_Qualifiers = json.load(open("C2-QIDs.json"))
 
-# Use the below if you want to run the script w/o using command line arguments
+Qualifier = "Q1"
+
 battlefy_csv_filename = "Testing/sendou-download.csv"
 gform_csv_filename = "Testing/g-down-download.csv"
 
@@ -20,7 +23,7 @@ async def runner():
     """
     
     download_google_sheet()
-    await download_sendou_sheet(ID=2536)
+    await download_sendou_sheet(ID=C2_Qualifiers[Qualifier]["ID"])
     
     # Print the timestamp of when the script was run
     print("*The below message was generated on", format_timestamp(arrow.utcnow(), TimestampType.LONG_DATETIME),
