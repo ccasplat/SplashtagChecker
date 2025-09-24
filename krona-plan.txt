@@ -1,3 +1,5 @@
+- Format Sendou.ink TXT file to Battlefy output
+  - FIRST PRIORITY: Need something to work within the next day
 - Automatic Roster Sheet Download from link to Web Published Sheet
   - How to make dataframe to CSV for program to use 
 - Sendou.py intergration for automatic CSV building 
