@@ -8,7 +8,7 @@ from discord_timestamps import format_timestamp, TimestampType
 
 
 # Use the below if you want to run the script w/o using command line arguments
-battlefy_csv_filename = "Testing/sendou_scrap.csv"
+battlefy_csv_filename = "Testing/sendou-download.csv"
 gform_csv_filename = "Testing/g-down-download.csv"
 
 def runner():
