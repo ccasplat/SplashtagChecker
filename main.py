@@ -8,8 +8,8 @@ from discord_timestamps import format_timestamp, TimestampType
 
 
 # Use the below if you want to run the script w/o using command line arguments
-battlefy_csv_filename = ''  # Path to Battlefy CSV file
-gform_csv_filename = ''     # Path to Google Form CSV file
+battlefy_csv_filename = "Testing/sendou_scrap.csv"
+gform_csv_filename = "Testing/g-down-download.csv"
 
 def runner():
     """
@@ -22,7 +22,7 @@ def runner():
     # Create a Validator instance with the provided CSV filenames
     validation = Validator(battlefy_csv_filename, gform_csv_filename)
 
-    print("\n## Splashtag Errors on Battlefy")
+    print("\n## Splashtag Errors on sendou.ink")
 
     # Get teams with missing or invalid splashtags from Battlefy
     missing_splashtag_result = validation.get_missing_splashtags_from_battlefy()
@@ -31,7 +31,7 @@ def runner():
     if len(missing_splashtag_result.keys()) == 0:
         print("No Splashtag errors found. Good job everyone!")
     else:
-        print("The below teams have improperly formatted Splashtags on Battlefy:")
+        print("The below teams have improperly formatted Splashtags on sendou.ink:")
 
         # Sort team names alphabetically for output
         sorted_team_names = sorted(missing_splashtag_result.keys())
@@ -41,7 +41,7 @@ def runner():
             bad_splashtags = pretty_print_players(missing_splashtag_result[team])
             # Get the Discord username of the team captain
             team_captain_discord = validation.battlefy_teams[team].captain.discord
-            print(f"- {team}: @{team_captain_discord} |{bad_splashtags}")
+            print(f"- {team}: {team_captain_discord} |{bad_splashtags}")
 
     print("\n## Teams that have not registered via Google form")
 
@@ -52,12 +52,14 @@ def runner():
     if len(teams_not_on_gform) == 0:
         print("No missing Google Form Registrations. Good job everyone!")
     else:
-        print("The below teams registered on Battlefy but did not register via Google Form:")
+        print("The below teams registered on sendou.ink but did not register via Google Form:")
 
         for team_diff in teams_not_on_gform:
-            team_name = team_diff.battlefy.name
+           #  print(team_diff)
+            # team_name = team_diff.battlefy.name
+            team_name = team_diff
             team_captain_discord = validation.battlefy_teams[team_name].captain.discord
-            print(f"- `{team_name}`: @{team_captain_discord}")
+            print(f"- `{team_name}`: {team_captain_discord}")
 
     print("\n## Splashtag Cross Check")
 
@@ -68,16 +70,16 @@ def runner():
     if len(splashtag_conflicts) == 0:
         print("No Splashtag conflicts. Good job everyone!")
     else:
-        print("The below teams have players with splashtags that are different across Battlefy and Google Form "
+        print("The below teams have players with splashtags that are different across sendou.ink and Google Form "
               "registrations:")
 
         for team_name, player_diff in splashtag_conflicts.items():
             only_in_battlefy = pretty_print_player_list(list(player_diff.battlefy))
             only_in_gform = pretty_print_player_list(list(player_diff.gform))
-            print(f"- {team_name}: @{validation.battlefy_teams[team_name].captain.discord}")
+            print(f"- {team_name}: {validation.battlefy_teams[team_name].captain.discord}")
 
             if len(only_in_battlefy) > 0:
-                print(f"  - Players only on Battlefy:{only_in_battlefy}")
+                print(f"  - Players only on sendou.ink:{only_in_battlefy}")
             if len(only_in_gform) > 0:
                 print(f"  - Players only on Google Form:{only_in_gform}")
 
