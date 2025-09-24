@@ -6,15 +6,22 @@ from models.validator import Validator
 from util.pretty_print import pretty_print_players, pretty_print_player_list
 from discord_timestamps import format_timestamp, TimestampType
 
+from automation import *
+import asyncio
+
 
 # Use the below if you want to run the script w/o using command line arguments
 battlefy_csv_filename = "Testing/sendou-download.csv"
 gform_csv_filename = "Testing/g-down-download.csv"
 
-def runner():
+async def runner():
     """
     Runs the validation checks and prints results for splashtag errors and missing registrations.
     """
+    
+    download_google_sheet()
+    await download_sendou_sheet(ID=2536)
+    
     # Print the timestamp of when the script was run
     print("*The below message was generated on", format_timestamp(arrow.utcnow(), TimestampType.LONG_DATETIME),
           "via an automatic script*")
@@ -99,4 +106,5 @@ if __name__ == "__main__":
     if args.gform_filename is not None:
         gform_csv_filename = args.gform_filename
 
-    runner()
+
+asyncio.run(runner())
