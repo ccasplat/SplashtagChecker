@@ -53,6 +53,10 @@ async def runner():
             team_captain_discord = validation.battlefy_teams[team].captain.discord
             print(f"- {team}: {team_captain_discord} |{bad_splashtags}")
 
+        print("\n`Splashtag Errors on sendou.ink`")
+        print("- **If your team in this section, this means there are player(s) that do not have a valid Splashtag on sendou.ink.**")
+        print("- We do require the full Splashtag, including the pound sign and the 4 or 5 digit number afterwards. For example, `VeronIKA#1234` is a valid Splashtag. `VeronIKA` is not acceptable. Please confirm that the splashtag are valid using the [CCA's Splatoon 3 Splashtag Character Checker](https://docs.google.com/spreadsheets/u/0/d/19zMKlFB3kGDASFhCbDimNpBQQupUM6SWBLTqAJhJtRU/htmlview#gid=0) before updating on sendou.ink")
+
     print("\n## Teams that have not registered via Google form")
 
     # Get teams that are on Battlefy but not registered via Google Form
@@ -70,6 +74,10 @@ async def runner():
             team_name = team_diff
             team_captain_discord = validation.battlefy_teams[team_name].captain.discord
             print(f"- `{team_name}`: {team_captain_discord}")
+
+        print("\n`Teams that have not registered via Google form`")
+        print("- **If your team in this section, this means that you have not registered your team using the Google form or that there is difference betwen team name on sendou.ink and the one used in the google form.**")
+        print("- All teams are required to fill out the CCA Circuit Google Registration; please double check the [CCA Circuit Season 2 Google Registered Teams](https://docs.google.com/spreadsheets/d/e/2PACX-1vS9FofFA3esOId-Cj2fq4-TdEGq2PJ63awf60B8zAe_XG_nm5a6h65Uq6R0q9Y88DL5X7RsaxXbxWJO/pubhtml?gid=384553618&single=true) to ensure that your team is listed there. If not, please submit a response to the [CCA Circuit Season 2 Registration](https://docs.google.com/forms/d/e/1FAIpQLSfkRzCe_dDSrH7acfxTP71-oOCvc7jg5Oe0wAX2FioGkywyKA/viewform) in full.")
 
     print("\n## Splashtag Cross Check")
 
@@ -93,6 +101,12 @@ async def runner():
             if len(only_in_gform) > 0:
                 print(f"  - Players only on Google Form:{only_in_gform}")
 
+        print("\n`Splashtag Cross Check`")
+        print("- **If your team in this section, this means that there are players that are not on sendou.ink or part of your roster originally submitted during Google Registration.**")
+        print("- Player(s) may be in this section if their Splashtag are different between registrations. If a Splashtag change needs to be made, please confirm that the splashtag are valid using the [CCA's Splatoon 3 Splashtag Character Checker](https://docs.google.com/spreadsheets/u/0/d/19zMKlFB3kGDASFhCbDimNpBQQupUM6SWBLTqAJhJtRU/htmlview#gid=0) and then submit a response to the [CCA Circuit Season 2 | Roster Changes & Splashtag Updates](https://forms.gle/gYj82DCasMMjtJNe7) so it can be updated.")
+        print("- Sendou.ink only support teams up to 6, therefore, any 7th or 8th players needs to be manually added by CCA staff. To have this done, please to go #circuit-helpdesk stating your team name and the links to their sendou.ink pages")
+
+    print("\n**Please note that all registration issues must be resolved by " + C2_Qualifiers[Qualifier]["Timestamp"] + ". Any players with missing or incorrect Splashtags after this date will be dropped and cannot play in " + C2_Qualifiers[Qualifier]["Tag"] + ". Any teams with less than 4 players or teams that have not registered via Google form will also be dropped.  __This deadline cannot be extended for any reason.__ You will be unable to update player names after " + C2_Qualifiers[Qualifier]["Timestamp"] + "! Please read the ruleset found in #circuit-info for more information.**")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

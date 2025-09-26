@@ -1,29 +1,43 @@
 {   "Q1": {
         "ID":2536,
-        "Timestamp":"<t:1758945540:F>"
+        "Timestamp":"<t:1758945540:F>",
+        "Tag":"Qualifer #1"
     },
     "Q2":{
         "ID":2537,
-        "Timestamp":"<t:1759550340:F>"
+        "Timestamp":"<t:1759550340:F>",
+        "Tag":"Qualifer #2"
     },
     "Q3":{
         "ID":2538,
-        "Timestamp":"<t:1760155140:F>"
+        "Timestamp":"<t:1760155140:F>",
+        "Tag":"Qualifer #3"
     },
     "Q4":{
         "ID":2539,
-        "Timestamp":"<t:1761364740:F>"
+        "Timestamp":"<t:1761364740:F>",
+        "Tag":"Qualifer #4"
     },
     "Q5":{
         "ID":2540,
-        "Timestamp":"<t:1761969540:F>"
+        "Timestamp":"<t:1761969540:F>",
+        "Tag":"Qualifer #5"
     },
     "Q6":{
         "ID":2541,
-        "Timestamp":"<t:1762577940:F>"
+        "Timestamp":"<t:1762577940:F>",
+        "Tag":"Qualifer #6"
     },
     "LCQ":{
         "ID":2542,
-        "Timestamp":"<t:1763787540:F>"
+        "Timestamp":"<t:1763787540:F>",
+        "Tag":"Last Chance Qualifer"
+    },
+    "Links":{
+        "Update":"https://discord.com/channels/722945689847332894/1410077864262635591/1417231631462432930",
+        "Confirmed":"https://docs.google.com/spreadsheets/d/e/2PACX-1vS9FofFA3esOId-Cj2fq4-TdEGq2PJ63awf60B8zAe_XG_nm5a6h65Uq6R0q9Y88DL5X7RsaxXbxWJO/pubhtml?gid=384553618&single=true",
+        "Rosters":"https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vT_zAj5Sytl8c29A5Z0eGACdMpKItrcFnpb6rFMY1qGHUVHVF0HVva5hV549IBGrOY5uO-cZxiwuOLf/pubhtml?gid=1544574575&single=true",
+        "Register":"https://forms.gle/eMohJ9e6dJK6i8dV7",
+        "Valid":"https://docs.google.com/spreadsheets/u/0/d/19zMKlFB3kGDASFhCbDimNpBQQupUM6SWBLTqAJhJtRU/htmlview#gid=0"
     }
 }
