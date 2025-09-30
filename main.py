@@ -12,7 +12,7 @@ import asyncio
 
 C2_Qualifiers = json.load(open("C2-QIDs.json"))
 
-Qualifier = "Q1"
+Qualifier = "Q2"
 
 battlefy_csv_filename = "Testing/sendou-download.csv"
 gform_csv_filename = "Testing/g-down-download.csv"
