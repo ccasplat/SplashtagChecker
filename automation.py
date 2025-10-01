@@ -3,6 +3,8 @@ import sendou
 from dotenv import load_dotenv
 import gdown
 
+import sys
+
 load_dotenv()
 
 GOOGLE_SAVE_LOCATION = "Testing/g-down-download.csv"
@@ -26,7 +28,7 @@ async def download_sendou_sheet(ID, save_location=SENDOU_SAVE_LOCATION):
 
     tournament_teams = [{'team_name': team.name, 'players': [{'id': player.discord_id, 'splashtag': player.in_game_name} for player in team.members], 'link': team.team_page_url if team.team_page_url != None else team.url} for team in teams]
 
-    with open(save_location, "w") as write_file:
+    with open(save_location, "w", encoding='utf8') as write_file:
         first_line = TEAM_NAME_BATTLEFY_HEADER + "," + PLAYER_NAME_BATTLEFY_HEADER + "," + PLAYER_DISCORD_BATTLEFY_HEADER + "\n"
 
         write_file.write(first_line)
@@ -38,6 +40,9 @@ async def download_sendou_sheet(ID, save_location=SENDOU_SAVE_LOCATION):
             for player in info["players"]:
                 player_splashtag = player["splashtag"].replace("\"", "\"\"")
 
-                write_file.write(team + ",\"" + player_splashtag  + "\"," + captain_discord + "\n")
+                line_output = team + ",\"" + player_splashtag + "\"," + captain_discord + "\n"
+
+                print(line_output)
+                write_file.write(line_output)
     
     return True

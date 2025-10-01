@@ -28,7 +28,7 @@ def parse_gform_csv(gform_csv_filename: str) -> Dict[str, Team]:
     teams_list = []
 
     # Open the Google Forms CSV file for reading
-    with open(gform_csv_filename, mode='r', newline='') as file:
+    with open(gform_csv_filename, mode='r', newline='', encoding='utf8') as file:
         reader = csv.DictReader(file)
 
         # Iterate over each row (team registration)
@@ -76,7 +76,7 @@ def parse_battlefy_csv(battlefy_csv_filename: str) -> Dict[str, Team]:
     team_dict: Dict[str, Team] = {}
 
     # Open the Battlefy CSV file for reading
-    with open(battlefy_csv_filename, mode='r', newline='') as file:
+    with open(battlefy_csv_filename, mode='r', newline='', encoding='utf8') as file:
         reader = csv.DictReader(file)
 
         # Iterate over each row (player registration)
