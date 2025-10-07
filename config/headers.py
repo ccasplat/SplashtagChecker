@@ -2,8 +2,10 @@ from typing import Final
 
 
 TEAM_NAME_GFORM_HEADER: Final = 'Team Name'
+TEAM_SECOND_CONTACT_GFORM_HEADER: Final = 'Secondary Contact'
 PLAYER_NAME_GFORM_HEADER: Final = 'Player {}\'s Splashtag'
 PLAYER_DISCORD_GFORM_HEADER: Final = 'Player {}\'s Discord Username'
+
 
 TEAM_NAME_BATTLEFY_HEADER: Final = 'teamName'
 PLAYER_NAME_BATTLEFY_HEADER: Final = 'inGameName'

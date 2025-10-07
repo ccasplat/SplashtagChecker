@@ -34,7 +34,11 @@ def parse_gform_csv(gform_csv_filename: str) -> Dict[str, Team]:
         # Iterate over each row (team registration)
         for row in reader:
             # Create a Team object for each row
-            team = Team(name=row[headers.TEAM_NAME_GFORM_HEADER], source=DataSource.GOOGLE_REGISTRATION)
+            team = Team(name=row[headers.TEAM_NAME_GFORM_HEADER],
+                        source=DataSource.GOOGLE_REGISTRATION,
+                        second_contact=(row[headers.TEAM_SECOND_CONTACT_GFORM_HEADER]
+                                        if row[headers.TEAM_SECOND_CONTACT_GFORM_HEADER]
+                                        else None))
 
             # Add up to MAX_PLAYERS_PER_TEAM players to the team
             for i in range(MAX_PLAYERS_PER_TEAM):
@@ -57,6 +61,7 @@ def parse_gform_csv(gform_csv_filename: str) -> Dict[str, Team]:
                 team.captain = team.players[0]  # First player is captain
 
             teams_list.append(team)
+            print(team)
 
     # Return a dictionary mapping team names to Team objects
     return {team.name: team for team in teams_list}

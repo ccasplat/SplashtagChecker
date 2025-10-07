@@ -23,6 +23,7 @@ class Team:
     captain: Optional[Player] = None
     players: List[Player] = field(default_factory=list)
     source: Optional[DataSource] = None
+    second_contact: Optional[str] = None
 
     def __sub__(self, other: object) -> 'Team':
         """
