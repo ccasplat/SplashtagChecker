@@ -51,7 +51,11 @@ async def runner():
             bad_splashtags = pretty_print_players(missing_splashtag_result[team])
             # Get the Discord username of the team captain
             team_captain_discord = validation.battlefy_teams[team].captain.discord
-            print(f"- {team}: {team_captain_discord} |{bad_splashtags}")
+
+            # second contact string - untested since there are no teams with this issue aws of 10/7 - cyanne
+            gform_team = validation.gform_teams[team]
+            second_contact_string = ", @" + gform_team.second_contact + " " if gform_team.second_contact else ""
+            print(f"- {team}: {team_captain_discord}{second_contact_string} |{bad_splashtags}")
 
         print("\n`Splashtag Errors on sendou.ink`")
         print("- **If your team in this section, this means there are player(s) that do not have a valid Splashtag on sendou.ink.**")
@@ -94,7 +98,10 @@ async def runner():
         for team_name, player_diff in splashtag_conflicts.items():
             only_in_battlefy = pretty_print_player_list(list(player_diff.battlefy))
             only_in_gform = pretty_print_player_list(list(player_diff.gform))
-            print(f"- {team_name}: {validation.battlefy_teams[team_name].captain.discord}")
+
+            gform_team = validation.gform_teams[team_name]
+            second_contact_string = ", @" + gform_team.second_contact + " " if gform_team.second_contact else ""
+            print(f"- {team_name}: {validation.battlefy_teams[team_name].captain.discord}{second_contact_string}")
 
             if len(only_in_battlefy) > 0:
                 print(f"  - Players only on sendou.ink:{only_in_battlefy}")

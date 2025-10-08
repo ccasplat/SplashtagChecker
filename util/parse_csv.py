@@ -61,7 +61,7 @@ def parse_gform_csv(gform_csv_filename: str) -> Dict[str, Team]:
                 team.captain = team.players[0]  # First player is captain
 
             teams_list.append(team)
-            print(team)
+            # print(team)
 
     # Return a dictionary mapping team names to Team objects
     return {team.name: team for team in teams_list}
