@@ -49,11 +49,11 @@ async def runner():
         for team in sorted_team_names:
             # Format the list of bad splashtags for this team
             bad_splashtags = pretty_print_players(missing_splashtag_result[team])
-            # Get the Discord username of the team captain
-            team_captain_discord = validation.battlefy_teams[team].captain.discord
 
-            # second contact string - untested since there are no teams with this issue aws of 10/7 - cyanne
+            # contact string - untested since there are no teams with this issue as of 10/7 - cyanne
+            #TODO: When a team populates here, test
             gform_team = validation.gform_teams[team]
+            team_captain_discord = f"@{gform_team.captain.discord} "
             second_contact_string = ", @" + gform_team.second_contact + " " if gform_team.second_contact else ""
             print(f"- {team}: {team_captain_discord}{second_contact_string} |{bad_splashtags}")
 
@@ -100,8 +100,10 @@ async def runner():
             only_in_gform = pretty_print_player_list(list(player_diff.gform))
 
             gform_team = validation.gform_teams[team_name]
+            team_captain_discord = f"@{gform_team.captain.discord} "
             second_contact_string = ", @" + gform_team.second_contact + " " if gform_team.second_contact else ""
-            print(f"- {team_name}: {validation.battlefy_teams[team_name].captain.discord}{second_contact_string}")
+
+            print(f"- {team_name}: {team_captain_discord}{second_contact_string}")
 
             if len(only_in_battlefy) > 0:
                 print(f"  - Players only on sendou.ink:{only_in_battlefy}")
