@@ -42,7 +42,7 @@ async def download_sendou_sheet(ID, save_location=SENDOU_SAVE_LOCATION):
 
                 line_output = team + ",\"" + player_splashtag + "\"," + captain_discord + "\n"
 
-                print(line_output)
+                # print(line_output)
                 write_file.write(line_output)
     
     return True
